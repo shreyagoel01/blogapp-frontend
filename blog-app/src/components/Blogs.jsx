@@ -1,7 +1,7 @@
 import React, {useEffect , useState} from 'react';
 import axios from "axios";
 import Card from 'react-bootstrap/Card';
-
+import Button from 'react-bootstrap/Button';
 
 function Blogs() {
 
@@ -36,16 +36,17 @@ function Blogs() {
               <>
                    {
                        blogs.map((blog)=>(
-                        <Card className="Blog-card" style={{ width: '18rem' }}>
-                        <Card.Body>
-                          <Card.Title>{blog.title}</Card.Title>
-                          <Card.Subtitle className="mb-2 text-muted">{blog.author}</Card.Subtitle>
-                          <Card.Text>
-                            {blog.desc}
-                          </Card.Text>
-                          
+                        <Card className="text-center" bg="primary" border="danger">
+                        <Card.Header style={{backgroundColor:"#FDEDEC"}}><h2>{blog.title}</h2></Card.Header>
+                        <Card.Body style={{backgroundColor:"#FADBD8"}}>
+                        <Card.Title>{blog.author}</Card.Title>
+                        <Card.Text>
+                           {blog.desc}
+                        </Card.Text>
+                        <Button variant="light" >Read More...</Button>
                         </Card.Body>
-                      </Card>
+                        <Card.Footer className="text-muted" style={{backgroundColor:"white"}}>{blog.updatedAt}</Card.Footer>
+                        </Card>
 
           ))
                    }
