@@ -2,20 +2,24 @@ import React, {useEffect , useState} from 'react';
 import axios from "axios";
 import Card from 'react-bootstrap/Card';
 import Button from 'react-bootstrap/Button';
-
-function Blogs() {
+import Row from "react-bootstrap/Row";
+import Col from "react-bootstrap/Col";
+//import Container from "react-bootstrap/Container";
+import dayjs from 'dayjs';
+import relativeTime from 'dayjs/plugin/relativeTime';
+import config from "../config.json";
+import './Blogs.css';
+function Blogs(props) {
 
     const[blogs, setBlogs] = useState([]);
     useEffect(() => {
         const dataFetch = async() => {
             try{
-                const headers = {
-                    "Access-Control-Allow-Origin": "*"
-                }
-                const res = await axios.get("https://shreyagoel01blog.herokuapp.com/api/blogs", headers);
+                
+                const res = await axios.get(`${config.BASE}blogs`);
                 console.log(res.data);
                 if(res.data){
-                    setBlogs(res.data);
+                    setBlogs(res.data.slice(0, props.count));
                 }
 
             }
@@ -28,26 +32,31 @@ function Blogs() {
 
 
     }, [])
-
+    console.log(props);
+    dayjs.extend(relativeTime);
     return (
       <>
+      <Row lg={2}>
       {
           blogs ? (
-              <>
+              <><br></br>
                    {
-                       blogs.map((blog)=>(
-                        <Card className="text-center" bg="primary" border="danger">
-                        <Card.Header style={{backgroundColor:"#FDEDEC"}}><h2>{blog.title}</h2></Card.Header>
-                        <Card.Body style={{backgroundColor:"#FADBD8"}}>
-                        <Card.Title>{blog.author}</Card.Title>
-                        <Card.Text>
-                           {blog.desc}
-                        </Card.Text>
-                        <Button variant="light" >Read More...</Button>
-                        </Card.Body>
-                        <Card.Footer className="text-muted" style={{backgroundColor:"white"}}>{blog.updatedAt}</Card.Footer>
+                       blogs.map((blog,id)=>(
+                        <Col key={id}>
+                        <Card className="blog-card" border="info" >
+                            <Card.Header>Featured</Card.Header>
+                            <Card.Body className="blog-body">
+                                <Card.Title>{blog.title}</Card.Title>
+                                <Card.Text >
+                                    <b>----- By {blog.author}</b><br></br>
+                                    {blog.desc.substring(0,120)+"..."}
+                                </Card.Text>
+                                <Button variant="primary">Explore more</Button>
+                            </Card.Body>
+                            <Card.Footer className="text-muted">Last updated {dayjs(`${blog.updatedAt}`).fromNow()}</Card.Footer>
                         </Card>
-
+                        
+                        </Col>
           ))
                    }
               </>
@@ -56,7 +65,7 @@ function Blogs() {
             </>  
           )
       }
-      
+      </Row>
       </>  
     )
 }
