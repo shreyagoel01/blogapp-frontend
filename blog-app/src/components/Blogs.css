@@ -51,10 +51,10 @@
   }
   .blog-card{
     margin:5px;
-    border-style: outset;
+    border:4px solid lightcoral;
   }
   .blog-body{
-    background-color: lightblue;
+    background-color: #FDEDEC;
   }
   
   .header{

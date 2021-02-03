@@ -21,14 +21,14 @@ const handleChange = (e) => {
 
 const postBlog =async() => {
     try{
-        const res= await axios.post( `${config.BASE}create` , blogPost  );
+        const res= await axios.post( `${config.BASE}create` , blogPost);
         if(res.data){
           setBlog({
               title: '',
               author: '',
               desc: ''
           })
-          window.alert("Blog Created");
+          window.alert("blog Created");
           window.location.reload(false);}
     }catch(err){
         console.log(err);
@@ -36,6 +36,7 @@ const postBlog =async() => {
 }
 
 const onSubmit =(e) => {
+    e.preventDefault();
     if(blogPost.title.trim() !== ""  && blogPost.author.trim() !== ""  && blogPost.desc.trim() !== "" ){
         postBlog();
     }else{
@@ -43,7 +44,7 @@ const onSubmit =(e) => {
     }
 }
 
-
+console.log(blogPost);
 
     return (
       <>
@@ -74,4 +75,4 @@ const onSubmit =(e) => {
     )
 }
 
-export default CreateBlog
+export default CreateBlog;

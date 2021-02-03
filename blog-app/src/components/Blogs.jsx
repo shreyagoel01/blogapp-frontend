@@ -43,7 +43,7 @@ function Blogs(props) {
                    {
                        blogs.map((blog,id)=>(
                         <Col key={id}>
-                        <Card className="blog-card" border="info" >
+                        <Card className="blog-card" border="info" style={{ border:"2px solid #FADBD8"}}>
                             <Card.Header>Featured</Card.Header>
                             <Card.Body className="blog-body">
                                 <Card.Title>{blog.title}</Card.Title>
@@ -70,4 +70,4 @@ function Blogs(props) {
     )
 }
 
-export default Blogs
+export default Blogs;
